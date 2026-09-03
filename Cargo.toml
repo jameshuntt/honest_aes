@@ -1,0 +1,37 @@
+[package]
+name = "honest_aes"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+license = "MIT OR Apache-2.0"
+description = "AES built on the honest field with no lookup tables: the S-box is computed, MixColumns is field multiplication, and nothing branches on a key or a byte of data. AES-128/192/256 with CTR, CBC, CMAC and GCM."
+authors = ["James Hunt <james@1o.business>"]
+repository = "https://github.com/jameshuntt/honest_aes"
+readme = "README.md"
+keywords = ["aes", "gcm", "cmac", "constant-time", "no-std"]
+categories = ["cryptography", "no-std"]
+include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "README.md", "LICENSE-MIT", "LICENSE-APACHE"]
+
+[features]
+default = ["std"]
+# `std::error::Error` for `AesError`.
+std = []
+
+[dependencies]
+honest = { version = "0.2.0", path = "../honest", default-features = false }
+subtle = { version = "2.6", default-features = false }
+zeroize = "1.8"
+
+[dev-dependencies]
+aes = "0.8"
+aes-gcm = "0.10"
+cbc = { version = "0.1", features = ["alloc"] }
+cipher = { version = "0.4", features = ["alloc", "block-padding"] }
+cmac = "0.7"
+ctr = "0.9"
+hex = "0.4"
+rand_chacha = "0.9"
+rand_core = "0.9"
+
+[[example]]
+name = "seal"
